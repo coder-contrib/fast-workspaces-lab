@@ -24,4 +24,4 @@ The five templates are in [`templates/`](templates/). The image recipes are in [
 
 The extra [agent-sandbox and Squid template](examples/agent-sandbox-squid/) shows network rules by host name. It is not a sixth speed step.
 
-[Open the talk slides](slides/Improving_Workspace_Startup_Times.html) in a browser. Some template code adapts examples from `coder/registry`. See `LICENSE`. Coder Agents prepared this repository for Ben Potter.
+Download [the talk slides (HTML)](slides/Improving_Workspace_Startup_Times.html) and open the file in a browser. Some template code adapts examples from `coder/registry`. See `LICENSE`. Coder Agents prepared this repository for Ben Potter.
