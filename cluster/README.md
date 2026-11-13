@@ -25,7 +25,7 @@ kubectl apply -f cluster/prepull.yaml
 kubectl apply -f cluster/prepull-claim.yaml
 ```
 
-The five speed templates need Kubernetes access. The extra Squid template also needs the agent-sandbox controller and a gVisor RuntimeClass.
+The five speed templates need Kubernetes access. The extra Squid template also needs the agent-sandbox controller and at least one RuntimeClass on the workspace nodes. It defaults to gVisor.
 
 ## Node schedule
 

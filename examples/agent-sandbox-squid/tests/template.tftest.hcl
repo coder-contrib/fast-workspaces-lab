@@ -72,6 +72,28 @@ run "defaults" {
   }
 }
 
+run "additional_runtime_classes" {
+  command = plan
+
+  variables {
+    runtimes = "gvisor,kata-fc,edera,custom.vm"
+  }
+
+  override_data {
+    target = data.coder_parameter.runtime
+    values = { value = "custom.vm" }
+  }
+
+  assert {
+    condition     = [for o in data.coder_parameter.runtime.option : o.value] == ["gvisor", "kata-fc", "edera", "custom.vm"] && data.coder_parameter.runtime.default == "gvisor"
+    error_message = "Installed RuntimeClasses must be available, with the fastest one first."
+  }
+  assert {
+    condition     = kubernetes_manifest.sandbox[0].manifest.spec.podTemplate.spec.runtimeClassName == "custom.vm"
+    error_message = "The selected RuntimeClass must reach the Sandbox Pod."
+  }
+}
+
 run "controller_managed_sandbox" {
   command = plan
 
@@ -469,8 +491,8 @@ run "presets" {
     error_message = "Presets must set every immutable parameter, so a claim does not change one."
   }
   assert {
-    condition     = alltrue([for p in data.coder_workspace_preset.profile : one(p.prebuilds).instances == 1 && one(one(p.prebuilds).expiration_policy).ttl == 86400])
-    error_message = "Each preset must have one prebuild that expires after a day."
+    condition     = length(data.coder_workspace_preset.profile["isolated"].prebuilds) == 1 && one(data.coder_workspace_preset.profile["isolated"].prebuilds).instances == 1 && one(one(data.coder_workspace_preset.profile["isolated"].prebuilds).expiration_policy).ttl == 86400 && alltrue([for k, p in data.coder_workspace_preset.profile : length(p.prebuilds) == 0 if k != "isolated"])
+    error_message = "Only the default preset must keep one prebuild, which expires after a day."
   }
 }
 
@@ -485,6 +507,16 @@ run "no_prebuilds" {
     condition     = alltrue([for p in data.coder_workspace_preset.profile : length(p.prebuilds) == 0])
     error_message = "prebuild_instances = 0 must turn prebuilds off."
   }
+}
+
+run "rejects_multiple_prebuilds" {
+  command = plan
+
+  variables {
+    prebuild_instances = 2
+  }
+
+  expect_failures = [var.prebuild_instances]
 }
 
 run "host_name_needs_ip" {
@@ -631,11 +663,11 @@ run "rejects_untagged_proxy_image" {
   expect_failures = [var.proxy_image]
 }
 
-run "rejects_unknown_runtime" {
+run "rejects_invalid_runtime" {
   command = plan
 
   variables {
-    runtimes = "runc"
+    runtimes = "gvisor,!bad"
   }
 
   expect_failures = [var.runtimes]

@@ -98,17 +98,18 @@ variable "coder_host_ip" {
 # A comma-separated string, not a list, because Coder checks presets with
 # every template variable as a string.
 variable "runtimes" {
-  description = "The RuntimeClasses that users can pick, comma-separated, in order. The first is the default. Offer only RuntimeClasses that the speed nodes have: gvisor, kata-qemu, kata-clh."
+  description = "Installed RuntimeClasses users can pick, comma-separated, in order. The first is the default. Offer only classes available on the speed nodes, such as gvisor, kata-qemu, kata-fc, or edera."
   type        = string
   default     = "gvisor"
 
   validation {
     condition = (
       length(compact(split(",", replace(var.runtimes, " ", "")))) > 0 &&
+      length(split(",", replace(var.runtimes, " ", ""))) == length(compact(split(",", replace(var.runtimes, " ", "")))) &&
       length(compact(split(",", replace(var.runtimes, " ", "")))) == length(distinct(compact(split(",", replace(var.runtimes, " ", ""))))) &&
-      alltrue([for r in compact(split(",", replace(var.runtimes, " ", ""))) : contains(["gvisor", "kata-qemu", "kata-clh"], r)])
+      alltrue([for r in compact(split(",", replace(var.runtimes, " ", ""))) : length(r) <= 253 && alltrue([for label in split(".", r) : length(label) <= 63 && can(regex("^[a-z0-9]([-a-z0-9]*[a-z0-9])?$", label))])])
     )
-    error_message = "runtimes must list one or more of gvisor, kata-qemu, and kata-clh, comma-separated, each once."
+    error_message = "runtimes must contain distinct Kubernetes RuntimeClass names, comma-separated, without empty entries."
   }
 }
 
@@ -130,13 +131,13 @@ variable "storage_class_name" {
 }
 
 variable "prebuild_instances" {
-  description = "The number of prebuilt workspaces to keep for each preset. Prebuilds need a Coder Premium license. Set 0 to turn them off."
+  description = "Keep one prebuilt workspace for the default Fully isolated preset. Prebuilds need Coder Premium. Set 0 to turn it off."
   type        = number
   default     = 1
 
   validation {
-    condition     = var.prebuild_instances >= 0 && floor(var.prebuild_instances) == var.prebuild_instances
-    error_message = "prebuild_instances must be a whole number, 0 or more."
+    condition     = contains([0, 1], var.prebuild_instances)
+    error_message = "prebuild_instances must be 0 or 1."
   }
 }
 
@@ -256,6 +257,16 @@ locals {
       description = "A small VM with a lighter hypervisor. Needs a node with /dev/kvm."
       icon        = "/icon/memory.svg"
     }
+    kata-fc = {
+      name        = "Kata microVM (Firecracker)"
+      description = "A small VM with its own kernel. Needs a node set up for Firecracker."
+      icon        = "/icon/memory.svg"
+    }
+    edera = {
+      name        = "Edera"
+      description = "A VM with its own kernel. Needs nodes set up for Edera."
+      icon        = "/icon/memory.svg"
+    }
   }
 }
 
@@ -365,17 +376,17 @@ data "coder_parameter" "runtime" {
   dynamic "option" {
     for_each = local.runtimes
     content {
-      name        = local.runtime_options[option.value].name
+      name        = try(local.runtime_options[option.value].name, option.value)
       value       = option.value
-      description = local.runtime_options[option.value].description
-      icon        = local.runtime_options[option.value].icon
+      description = try(local.runtime_options[option.value].description, "Needs this RuntimeClass on the speed nodes.")
+      icon        = try(local.runtime_options[option.value].icon, "/icon/container.svg")
     }
   }
 }
 
 # One preset for each fixed profile. A preset sets every immutable
-# parameter, so a claimed prebuild never changes one. Custom has no preset,
-# because its hosts are typed at create.
+# parameter, so a claimed prebuild never changes one. Only Fully isolated
+# keeps a prebuild. Custom has no preset because its hosts are typed at create.
 data "coder_workspace_preset" "profile" {
   for_each    = { for k, v in local.profiles : k => v if k != "custom" }
   name        = each.value.display_name
@@ -388,7 +399,7 @@ data "coder_workspace_preset" "profile" {
   }
 
   dynamic "prebuilds" {
-    for_each = var.prebuild_instances > 0 ? [1] : []
+    for_each = each.key == "isolated" && var.prebuild_instances == 1 ? [1] : []
     content {
       instances = var.prebuild_instances
       # Replace a prebuild that nobody claims within a day, so it does not

@@ -1,5 +1,3 @@
 # Slides
 
-Ben Potter will provide the final PDF for this talk. Add it to this directory when it is ready.
-
-Do not use an earlier HTML export as the final deck. The timing labels changed after the prebuild comparison was measured again.
+Open [the talk slides](Improving_Workspace_Startup_Times.html) in a browser. This is the updated deck Ben provided for both labs. It includes speaker notes in the HTML.
