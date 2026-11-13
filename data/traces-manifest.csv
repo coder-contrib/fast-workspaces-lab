@@ -1,0 +1,10 @@
+step,variant,file,pod_replaced,source
+1,fresh-create,01-baseline.json,n/a,earlier run
+2,fresh-create,02-terraform.json,n/a,earlier run
+3,fresh-create,03-base-image.json,n/a,earlier run
+4,standard,04-standard-1.json,true,no-Claude image
+4,standard,04-standard-2.json,true,no-Claude image
+4,standard,04-standard-3.json,true,no-Claude image
+5,optimized,05-optimized-1.json,false,no-Claude image
+5,optimized,05-optimized-2.json,false,no-Claude image
+5,optimized,05-optimized-3.json,false,no-Claude image

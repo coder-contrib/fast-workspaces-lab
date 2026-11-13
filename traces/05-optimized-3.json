@@ -1,0 +1,198 @@
+{
+  "provisioner_timings": [
+    {
+      "job_id": "00000000-0000-4000-8000-000000000001",
+      "started_at": "2026-11-13T14:36:18.797418Z",
+      "ended_at": "2026-11-13T14:36:18.798239Z",
+      "stage": "init",
+      "source": "coder",
+      "action": "terraform",
+      "resource": "coder_stage_init"
+    },
+    {
+      "job_id": "00000000-0000-4000-8000-000000000001",
+      "started_at": "2026-11-13T14:36:18.798644Z",
+      "ended_at": "2026-11-13T14:36:19.601111Z",
+      "stage": "plan",
+      "source": "coder",
+      "action": "terraform",
+      "resource": "coder_stage_plan"
+    },
+    {
+      "job_id": "00000000-0000-4000-8000-000000000001",
+      "started_at": "2026-11-13T14:36:19.225185Z",
+      "ended_at": "2026-11-13T14:36:19.228073Z",
+      "stage": "plan",
+      "source": "coder",
+      "action": "read",
+      "resource": "data.coder_workspace_owner.me"
+    },
+    {
+      "job_id": "00000000-0000-4000-8000-000000000001",
+      "started_at": "2026-11-13T14:36:19.22589Z",
+      "ended_at": "2026-11-13T14:36:19.228776Z",
+      "stage": "plan",
+      "source": "coder",
+      "action": "read",
+      "resource": "data.coder_workspace_preset.default"
+    },
+    {
+      "job_id": "00000000-0000-4000-8000-000000000001",
+      "started_at": "2026-11-13T14:36:19.226021Z",
+      "ended_at": "2026-11-13T14:36:19.227918Z",
+      "stage": "plan",
+      "source": "coder",
+      "action": "read",
+      "resource": "data.coder_workspace.me"
+    },
+    {
+      "job_id": "00000000-0000-4000-8000-000000000001",
+      "started_at": "2026-11-13T14:36:19.2307Z",
+      "ended_at": "2026-11-13T14:36:19.232722Z",
+      "stage": "plan",
+      "source": "coder",
+      "action": "state refresh",
+      "resource": "coder_agent.main"
+    },
+    {
+      "job_id": "00000000-0000-4000-8000-000000000001",
+      "started_at": "2026-11-13T14:36:19.237859Z",
+      "ended_at": "2026-11-13T14:36:19.253626Z",
+      "stage": "plan",
+      "source": "kubernetes",
+      "action": "state refresh",
+      "resource": "kubernetes_persistent_volume_claim_v1.home"
+    },
+    {
+      "job_id": "00000000-0000-4000-8000-000000000001",
+      "started_at": "2026-11-13T14:36:19.239375Z",
+      "ended_at": "2026-11-13T14:36:19.240846Z",
+      "stage": "plan",
+      "source": "coder",
+      "action": "state refresh",
+      "resource": "coder_app.claude[0]"
+    },
+    {
+      "job_id": "00000000-0000-4000-8000-000000000001",
+      "started_at": "2026-11-13T14:36:19.239897Z",
+      "ended_at": "2026-11-13T14:36:19.240922Z",
+      "stage": "plan",
+      "source": "coder",
+      "action": "state refresh",
+      "resource": "coder_env.anthropic_base_url[0]"
+    },
+    {
+      "job_id": "00000000-0000-4000-8000-000000000001",
+      "started_at": "2026-11-13T14:36:19.240326Z",
+      "ended_at": "2026-11-13T14:36:19.241284Z",
+      "stage": "plan",
+      "source": "coder",
+      "action": "state refresh",
+      "resource": "module.code-server[0].coder_app.code-server"
+    },
+    {
+      "job_id": "00000000-0000-4000-8000-000000000001",
+      "started_at": "2026-11-13T14:36:19.241232Z",
+      "ended_at": "2026-11-13T14:36:19.242567Z",
+      "stage": "plan",
+      "source": "coder",
+      "action": "state refresh",
+      "resource": "module.code-server[0].coder_script.code-server"
+    },
+    {
+      "job_id": "00000000-0000-4000-8000-000000000001",
+      "started_at": "2026-11-13T14:36:19.241252Z",
+      "ended_at": "2026-11-13T14:36:19.243069Z",
+      "stage": "plan",
+      "source": "coder",
+      "action": "state refresh",
+      "resource": "module.git-clone[0].coder_script.git_clone[0]"
+    },
+    {
+      "job_id": "00000000-0000-4000-8000-000000000001",
+      "started_at": "2026-11-13T14:36:19.264756Z",
+      "ended_at": "2026-11-13T14:36:19.285845Z",
+      "stage": "plan",
+      "source": "kubernetes",
+      "action": "state refresh",
+      "resource": "kubernetes_deployment_v1.main[0]"
+    },
+    {
+      "job_id": "00000000-0000-4000-8000-000000000001",
+      "started_at": "2026-11-13T14:36:19.621075Z",
+      "ended_at": "2026-11-13T14:36:20.033387Z",
+      "stage": "apply",
+      "source": "coder",
+      "action": "terraform",
+      "resource": "coder_stage_apply"
+    },
+    {
+      "job_id": "00000000-0000-4000-8000-000000000001",
+      "started_at": "2026-11-13T14:36:19.956411Z",
+      "ended_at": "2026-11-13T14:36:20.012977Z",
+      "stage": "apply",
+      "source": "http",
+      "action": "read",
+      "resource": "data.http.ai_gateway_token[0]"
+    },
+    {
+      "job_id": "00000000-0000-4000-8000-000000000001",
+      "started_at": "2026-11-13T14:36:20.020703Z",
+      "ended_at": "2026-11-13T14:36:20.022013Z",
+      "stage": "apply",
+      "source": "coder",
+      "action": "create",
+      "resource": "coder_env.anthropic_auth_token[0]"
+    },
+    {
+      "job_id": "00000000-0000-4000-8000-000000000001",
+      "started_at": "2026-11-13T14:36:20.034221Z",
+      "ended_at": "2026-11-13T14:36:20.034224Z",
+      "stage": "graph",
+      "source": "coder",
+      "action": "terraform",
+      "resource": "coder_stage_graph"
+    }
+  ],
+  "agent_script_timings": [
+    {
+      "started_at": "2026-11-13T14:36:20.448019Z",
+      "ended_at": "2026-11-13T14:36:20.456906Z",
+      "exit_code": 0,
+      "stage": "start",
+      "status": "ok",
+      "display_name": "code-server",
+      "workspace_agent_id": "00000000-0000-4000-8000-000000000002",
+      "workspace_agent_name": "main"
+    },
+    {
+      "started_at": "2026-11-13T14:36:20.444065Z",
+      "ended_at": "2026-11-13T14:36:20.472582Z",
+      "exit_code": 0,
+      "stage": "start",
+      "status": "ok",
+      "display_name": "Git Clone",
+      "workspace_agent_id": "00000000-0000-4000-8000-000000000002",
+      "workspace_agent_name": "main"
+    },
+    {
+      "started_at": "2026-11-13T14:36:20.443332Z",
+      "ended_at": "2026-11-13T14:36:20.449167Z",
+      "exit_code": 0,
+      "stage": "start",
+      "status": "ok",
+      "display_name": "Startup Script",
+      "workspace_agent_id": "00000000-0000-4000-8000-000000000002",
+      "workspace_agent_name": "main"
+    }
+  ],
+  "agent_connection_timings": [
+    {
+      "started_at": "2026-11-13T14:36:20.087035Z",
+      "ended_at": "2026-11-13T14:36:20.321747Z",
+      "stage": "connect",
+      "workspace_agent_id": "00000000-0000-4000-8000-000000000002",
+      "workspace_agent_name": "main"
+    }
+  ]
+}

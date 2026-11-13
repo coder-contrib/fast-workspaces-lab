@@ -1,0 +1,189 @@
+{
+  "provisioner_timings": [
+    {
+      "job_id": "00000000-0000-4000-8000-000000000001",
+      "started_at": "2026-11-13T12:45:39.820887Z",
+      "ended_at": "2026-11-13T12:45:39.821694Z",
+      "stage": "init",
+      "source": "coder",
+      "action": "terraform",
+      "resource": "coder_stage_init"
+    },
+    {
+      "job_id": "00000000-0000-4000-8000-000000000001",
+      "started_at": "2026-11-13T12:45:39.82192Z",
+      "ended_at": "2026-11-13T12:45:40.561625Z",
+      "stage": "plan",
+      "source": "coder",
+      "action": "terraform",
+      "resource": "coder_stage_plan"
+    },
+    {
+      "job_id": "00000000-0000-4000-8000-000000000001",
+      "started_at": "2026-11-13T12:45:40.235695Z",
+      "ended_at": "2026-11-13T12:45:40.236964Z",
+      "stage": "plan",
+      "source": "coder",
+      "action": "read",
+      "resource": "data.coder_workspace_owner.me"
+    },
+    {
+      "job_id": "00000000-0000-4000-8000-000000000001",
+      "started_at": "2026-11-13T12:45:40.235782Z",
+      "ended_at": "2026-11-13T12:45:40.237592Z",
+      "stage": "plan",
+      "source": "coder",
+      "action": "read",
+      "resource": "data.coder_workspace.me"
+    },
+    {
+      "job_id": "00000000-0000-4000-8000-000000000001",
+      "started_at": "2026-11-13T12:45:40.67737Z",
+      "ended_at": "2026-11-13T12:45:48.63661Z",
+      "stage": "apply",
+      "source": "coder",
+      "action": "terraform",
+      "resource": "coder_stage_apply"
+    },
+    {
+      "job_id": "00000000-0000-4000-8000-000000000001",
+      "started_at": "2026-11-13T12:45:41.016628Z",
+      "ended_at": "2026-11-13T12:45:41.019495Z",
+      "stage": "apply",
+      "source": "coder",
+      "action": "create",
+      "resource": "coder_agent.main"
+    },
+    {
+      "job_id": "00000000-0000-4000-8000-000000000001",
+      "started_at": "2026-11-13T12:45:41.018009Z",
+      "ended_at": "2026-11-13T12:45:41.04506Z",
+      "stage": "apply",
+      "source": "kubernetes",
+      "action": "create",
+      "resource": "kubernetes_persistent_volume_claim_v1.home"
+    },
+    {
+      "job_id": "00000000-0000-4000-8000-000000000001",
+      "started_at": "2026-11-13T12:45:41.018164Z",
+      "ended_at": "2026-11-13T12:45:41.170621Z",
+      "stage": "apply",
+      "source": "http",
+      "action": "read",
+      "resource": "data.http.ai_gateway_token[0]"
+    },
+    {
+      "job_id": "00000000-0000-4000-8000-000000000001",
+      "started_at": "2026-11-13T12:45:41.023819Z",
+      "ended_at": "2026-11-13T12:45:41.025407Z",
+      "stage": "apply",
+      "source": "coder",
+      "action": "create",
+      "resource": "coder_env.anthropic_base_url[0]"
+    },
+    {
+      "job_id": "00000000-0000-4000-8000-000000000001",
+      "started_at": "2026-11-13T12:45:41.024602Z",
+      "ended_at": "2026-11-13T12:45:41.027517Z",
+      "stage": "apply",
+      "source": "coder",
+      "action": "create",
+      "resource": "module.git-clone[0].coder_script.git_clone[0]"
+    },
+    {
+      "job_id": "00000000-0000-4000-8000-000000000001",
+      "started_at": "2026-11-13T12:45:41.025228Z",
+      "ended_at": "2026-11-13T12:45:41.03047Z",
+      "stage": "apply",
+      "source": "coder",
+      "action": "create",
+      "resource": "coder_app.claude[0]"
+    },
+    {
+      "job_id": "00000000-0000-4000-8000-000000000001",
+      "started_at": "2026-11-13T12:45:41.025599Z",
+      "ended_at": "2026-11-13T12:45:41.030418Z",
+      "stage": "apply",
+      "source": "coder",
+      "action": "create",
+      "resource": "module.code-server[0].coder_app.code-server"
+    },
+    {
+      "job_id": "00000000-0000-4000-8000-000000000001",
+      "started_at": "2026-11-13T12:45:41.026707Z",
+      "ended_at": "2026-11-13T12:45:41.033844Z",
+      "stage": "apply",
+      "source": "coder",
+      "action": "create",
+      "resource": "module.code-server[0].coder_script.code-server"
+    },
+    {
+      "job_id": "00000000-0000-4000-8000-000000000001",
+      "started_at": "2026-11-13T12:45:41.064579Z",
+      "ended_at": "2026-11-13T12:45:48.626168Z",
+      "stage": "apply",
+      "source": "kubernetes",
+      "action": "create",
+      "resource": "kubernetes_deployment_v1.main[0]"
+    },
+    {
+      "job_id": "00000000-0000-4000-8000-000000000001",
+      "started_at": "2026-11-13T12:45:41.177085Z",
+      "ended_at": "2026-11-13T12:45:41.177988Z",
+      "stage": "apply",
+      "source": "coder",
+      "action": "create",
+      "resource": "coder_env.anthropic_auth_token[0]"
+    },
+    {
+      "job_id": "00000000-0000-4000-8000-000000000001",
+      "started_at": "2026-11-13T12:45:48.644088Z",
+      "ended_at": "2026-11-13T12:45:48.644092Z",
+      "stage": "graph",
+      "source": "coder",
+      "action": "terraform",
+      "resource": "coder_stage_graph"
+    }
+  ],
+  "agent_script_timings": [
+    {
+      "started_at": "2026-11-13T12:45:57.828894Z",
+      "ended_at": "2026-11-13T12:46:04.827296Z",
+      "exit_code": 0,
+      "stage": "start",
+      "status": "ok",
+      "display_name": "code-server",
+      "workspace_agent_id": "00000000-0000-4000-8000-000000000002",
+      "workspace_agent_name": "main"
+    },
+    {
+      "started_at": "2026-11-13T12:45:57.830529Z",
+      "ended_at": "2026-11-13T12:47:17.876147Z",
+      "exit_code": 0,
+      "stage": "start",
+      "status": "ok",
+      "display_name": "Startup Script",
+      "workspace_agent_id": "00000000-0000-4000-8000-000000000002",
+      "workspace_agent_name": "main"
+    },
+    {
+      "started_at": "2026-11-13T12:45:57.82592Z",
+      "ended_at": "2026-11-13T12:45:59.719031Z",
+      "exit_code": 0,
+      "stage": "start",
+      "status": "ok",
+      "display_name": "Git Clone",
+      "workspace_agent_id": "00000000-0000-4000-8000-000000000002",
+      "workspace_agent_name": "main"
+    }
+  ],
+  "agent_connection_timings": [
+    {
+      "started_at": "2026-11-13T12:45:48.795219Z",
+      "ended_at": "2026-11-13T12:45:57.641675Z",
+      "stage": "connect",
+      "workspace_agent_id": "00000000-0000-4000-8000-000000000002",
+      "workspace_agent_name": "main"
+    }
+  ]
+}

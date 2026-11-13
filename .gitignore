@@ -1,0 +1,8 @@
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+*.log
+node_modules/
+**/variables.local.yaml
+.DS_Store
