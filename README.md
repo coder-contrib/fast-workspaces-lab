@@ -1,36 +1,27 @@
-# Workspace startup lab
+# Start a Coder workspace faster
 
-This repository supports Ben Potter's Coder Labs talk. It compares five ways to start a Coder workspace on Kubernetes.
+This is the small demo for Ben Potter's Coder Labs talk. It shows five workspace templates and the time each took to become ready.
 
-A prebuild is a workspace that Coder starts before someone claims it. A trace is a saved record of a workspace build timeline.
+A template tells Coder how to make a workspace. A prebuild is a workspace that Coder starts before someone claims it. An image holds the tools that a workspace uses. A trace is a saved build timeline.
 
-| Step | What changes | Ready time |
+| Step | What the workspace does | Ready time |
 | --- | --- | ---: |
-| 1. Baseline | Install tools each time a workspace starts. | 98.1 s |
-| 2. Terraform | Pin dependencies and stop waiting for the Pod rollout. | 98.7 s |
-| 3. Base image | Put the tools in an image before a workspace starts. | 16.5 s |
-| 4. Standard prebuild | Replace the Pod and reinstall Claude Code at claim. | 10.5 s median |
-| 5. Optimized prebuild | Keep the Pod and skip that install. | 1.8 s median |
+| 1. Baseline | Installs tools after the Pod starts. | 98.1 s |
+| 2. Terraform | Uses pinned dependencies and a shorter build job. | 98.7 s |
+| 3. Base image | Starts with tools already in the image. | 16.5 s |
+| 4. Standard prebuild | Replaces the Pod and installs Claude Code again. | 10.5 s median |
+| 5. Optimized prebuild | Keeps the Pod and skips that install. | 1.8 s median |
 
-The first three times came from one earlier run each. Steps 4 and 5 show medians from three later claims each. The node and images were warm. Read [the measurement notes](docs/measurements.md) before you use the numbers.
+These are demo measurements on one warm node. Step 2 did not make the workspace ready sooner. Steps 4 and 5 use the same image without Claude Code. Read [how the timings work](docs/measurements.md) before you use the numbers.
 
-The Step 2 workspace did not become ready sooner. Its Terraform job ended sooner because the template stopped waiting for a Pod rollout. On this Coder build, the provisioner already reuses cached providers.
+## Start here
 
-Steps 4 and 5 use the same image without Claude Code. Both prebuilds install Claude into the Pod filesystem. Step 4 replaces that Pod and installs Claude again. Step 5 keeps the Pod and skips the install. Its median was 8.7 seconds faster. Step 3 uses a full image with Claude already included, so Step 3 and Step 4 differ in more than one way. The [prebuild guide](docs/prebuilds.md) shows the two claim templates side by side.
+- Read [the prebuild guide](docs/prebuilds.md) to see why one claim replaces its Pod.
+- Read [the run guide](docs/run.md) to build images and push templates.
+- Open [`traces/`](traces/) to see the timing data behind the table.
 
-## Files
+The five templates are in [`templates/`](templates/). The image recipes are in [`images/`](images/). The optional cluster examples have [their own guide](cluster/README.md).
 
-- [`templates/`](templates/): The five Terraform templates. Step 1 has no dependency lock file.
-- [`images/`](images/): The workspace image and the Squid proxy image. Squid allows network access by host name.
-- [`cluster/`](cluster/): A namespace, permissions, and an example that pulls the image onto warm nodes.
-- [`examples/agent-sandbox-squid/`](examples/agent-sandbox-squid/): A separate agent-sandbox example with host-name rules.
-- [`traces/`](traces/): Redacted Coder build timelines. The timing values are unchanged.
-- [`slides/`](slides/): The final PDF will go here when the presenter provides it.
+The extra [agent-sandbox and Squid template](examples/agent-sandbox-squid/) shows network rules by host name. It is not a sixth speed step.
 
-## Use the examples
-
-Read [the setup guide](docs/run.md) before you push a template. The image names are placeholders. Replace them with images in your registry.
-
-The templates need Coder Premium for prebuilds and the AI Gateway. The agent-sandbox example also needs its controller and a runtime such as gVisor.
-
-Some template code adapts examples from `coder/registry`. See `LICENSE`. This repository was prepared with Coder Agents for Ben Potter.
+Ben will add the final PDF to [`slides/`](slides/) when it is ready. Some template code adapts examples from `coder/registry`. See `LICENSE`. Coder Agents prepared this repository for Ben Potter.
